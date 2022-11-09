@@ -17,18 +17,80 @@ int fact(int n){
     }
     return i;
 }
+float lssthan360(float n){
+    int i = n/360;
+    n = n - i*360;
+    return n;
+}
 float sin(float n){
-    
-    float s=0;
-    for (int k=1; k<=10; k++){
-        s = s + pow(-1, k+1)*(pow(n, 2*k-1)/fact(2*k-1));
+    float s = 0;
+    float j = lssthan360(n);
+    if (j>=0 && j<=90){
+        float rad = j*(3.142)/180;
+        for (int k=1; k<=10; k++){
+            s = s + pow(-1, k+1)*(pow(rad, 2*k-1)/fact(2*k-1));
+        }
+    }
+    if (j>90 && j<=180){
+        float l = 180 - j;
+        float rad = l*(3.142)/180;
+        for (int k=1; k<=10; k++){
+            s = s + pow(-1, k+1)*(pow(rad, 2*k-1)/fact(2*k-1));
+        }
+    }
+    if (j>180 && j<=270){
+        float l = j - 180;
+        float t= 0;
+        float rad = l*(3.142)/180;
+        for (int k=1; k<=10; k++){
+            t = t + pow(-1, k+1)*(pow(rad, 2*k-1)/fact(2*k-1));
+        s = (-1)*t;
+        }
+    }
+    if (j>270 && j<360){
+        float l = 360 - j;
+        float t= 0;
+        float rad = l*(3.142)/180;
+        for (int k=1; k<=10; k++){
+            t = t + pow(-1, k+1)*(pow(rad, 2*k-1)/fact(2*k-1));
+        s = (-1)*t;
+        }
     }
     return s;
 }
 float cos(float n){
     float s=1;
-    for (int k=2; k<=10; k++){
-        s = s + pow(-1, k+1)*(pow(n, 2*k-2)/fact(2*k-2));
+    float j = lssthan360(n);
+    if (j>=0 && j<=90){
+        float rad = j*(3.142)/180;
+        for (int k=2; k<=10; k++){
+            s = s + pow(-1, k+1)*(pow(rad, 2*k-2)/fact(2*k-2));
+        }
+    }
+    if (j>90 && j<=180){
+        float l = 180 - j;
+        float t = 1;
+        float rad = l*(3.142)/180;
+        for (int k=2; k<=10; k++){
+            t = t + pow(-1, k+1)*(pow(rad, 2*k-2)/fact(2*k-2));
+        }
+        s = (-1)*t;
+    }
+    if (j>180 && j<=270){
+        float l = j - 180;
+        float t = 1;
+        float rad = l*(3.142)/180;
+        for (int k=2; k<=10; k++){
+            t = t + pow(-1, k+1)*(pow(rad, 2*k-2)/fact(2*k-2));
+        }
+        s = (-1)*t;
+    }
+    if (j>270 && j<360){
+        float l = 360 - j;
+        float rad = l*(3.142)/180;
+        for (int k=2; k<=10; k++){
+            s = s + pow(-1, k+1)*(pow(rad, 2*k-2)/fact(2*k-2));
+        }
     }
     return s;
 }
@@ -42,6 +104,10 @@ float truncate(float n, int z){
 }
 float roundof(float n, int z){
     float nem;
+    float dup = n;
+    if (n<0){
+        n = (-1)*n;
+    }
     float num = n*(pow(10, z));
     int e = num*10;
     if(e%10 == 5 && (e/10)%2==0){
@@ -52,6 +118,9 @@ float roundof(float n, int z){
         num = num+0.5;
         int d = (int)num;
         nem = (float)d/(pow(10, z));
+    }
+    if (dup<n){
+        nem = (-1)*nem;
     }
     return nem;
 }
@@ -104,77 +173,35 @@ int main()
             cin>>na;
             switch (na){
                 case 1:
-                    lab1:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>=0 && a<=pi/2){
-                    cout<<roundof(sin(a), 5)<<endl;
+                    cout<<roundof(sin(a), 3)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab1;
-                    }
                 case 2:
-                    lab2:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>0 && a<=pi/2){
-                    cout<<roundof(cos(a), 5)<<endl;
+                    cout<<roundof(cos(a), 3)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab2;
-                    }
                 case 3:
-                    lab3:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>0 && a<=pi/2){
-                    cout<<roundof(tan(a), 5)<<endl;
+                    cout<<roundof(tan(a), 3)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab3;
-                    }
                 case 4:
-                    lab4:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>0 && a<=pi/2){
                     cout<<roundof(1/sin(a),5)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab4;
-                    }
                 case 5:
-                    lab5:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>0 && a<=pi/2){
                     cout<<roundof(1/cos(a),5)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab5;
-                    }
                 case 6:
-                    lab6:
-                    cout<<"Enter the angle in radian: ";
+                    cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    if (a>0 && a<=pi/2){
                     cout<<roundof(1/tan(a), 5)<<endl;
                     goto label;
-                    }
-                    else{
-                        cout<<"Please enter angle between 0 and pi\n";
-                        goto lab6;
-                    }
             }
          
     }
