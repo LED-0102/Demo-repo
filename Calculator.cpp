@@ -190,17 +190,17 @@ int main()
                 case 4:
                     cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    cout<<roundof(1/sin(a),5)<<endl;
+                    cout<<roundof(1/sin(a),3)<<endl;
                     goto label;
                 case 5:
                     cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    cout<<roundof(1/cos(a),5)<<endl;
+                    cout<<roundof(1/cos(a),3)<<endl;
                     goto label;
                 case 6:
                     cout<<"Enter the angle in degrees: ";
                     cin>>a;
-                    cout<<roundof(1/tan(a), 5)<<endl;
+                    cout<<roundof(1/tan(a),3)<<endl;
                     goto label;
             }
          
